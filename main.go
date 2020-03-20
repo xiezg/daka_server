@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2020-03-08 10:45:57
-# Last modified: 2020-03-15 16:20:53
+# Last modified: 2020-03-20 08:03:26
 ************************************************************************/
 
 package main
@@ -28,7 +28,6 @@ func commit_action(b []byte) (interface{}, error) {
 		return nil, err
 	}
 
-	fmt.Println(msg)
 	err := db.TaskCommit(msg.ActionType, msg.CommitTime, msg.Remarks)
 
 	return nil, err

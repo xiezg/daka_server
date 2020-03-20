@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2020-03-08 11:29:42
-# Last modified: 2020-03-18 07:54:49
+# Last modified: 2020-03-20 07:46:49
 ************************************************************************/
 
 package db
@@ -43,6 +43,8 @@ func QueryAccountInfo(name string, pwd string) (int, error) {
 	return 0, nil
 }
 
+//LEFT JOIN 关键字会从左表 (Persons) 那里返回所有的行，即使在右表 (Orders) 中没有匹配的行
+
 func QueryActionList(date time.Time) ([]interface{}, error) {
 
 	beginUnixTime := time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, date.Location()).Unix()
@@ -53,12 +55,13 @@ func QueryActionList(date time.Time) ([]interface{}, error) {
     a.action,
     a.action_time,
     a.take_time,
+    a.warning,
     b.commit_time,
     b.remarks,
     b.result 
 FROM
     plana a
-    LEFT JOIN task_status b ON a.id = b.action_type 
+    LEFT JOIN task_status b ON a.id = b.action_type
     AND UNIX_TIMESTAMP( b.commit_time ) >= ` + strconv.Itoa(int(beginUnixTime)) + `
     AND UNIX_TIMESTAMP( b.commit_time ) < ` + strconv.Itoa(int(endUnixTime)) + `
 ORDER BY
@@ -79,10 +82,11 @@ ORDER BY
 		var action_time string
 		var commit_time *string
 		var take_time *string
+		var warning *string
 		var remarks *string
 		var status *int
 
-		if err := rows.Scan(&id, &action, &action_time, &take_time, &commit_time, &remarks, &status); err != nil {
+		if err := rows.Scan(&id, &action, &action_time, &take_time, &warning, &commit_time, &remarks, &status); err != nil {
 			return nil, err
 		}
 
@@ -91,10 +95,11 @@ ORDER BY
 			Action      string
 			Action_time string
 			Take_time   *string
+			Warning     *string
 			Commit_time *string
 			Remarks     *string
 			Status      *int
-		}{Action_type: id, Action: action, Action_time: action_time, Take_time: take_time, Commit_time: commit_time, Remarks: remarks, Status: status})
+		}{Action_type: id, Action: action, Action_time: action_time, Take_time: take_time, Warning: warning, Commit_time: commit_time, Remarks: remarks, Status: status})
 	}
 
 	return result, nil
