@@ -3,12 +3,11 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2020-03-08 10:45:57
-# Last modified: 2020-03-20 08:03:26
+# Last modified: 2020-03-22 20:43:59
 ************************************************************************/
 
 package main
 
-import "fmt"
 import "time"
 import "daka/db"
 import "net/http"
@@ -35,7 +34,15 @@ func commit_action(b []byte) (interface{}, error) {
 
 func query_action_list(b []byte) (interface{}, error) {
 
-	return db.QueryActionList(time.Now())
+	msg := struct {
+		CurTime int64 `json:"time"`
+	}{}
+
+	if err := json.Unmarshal(b, &msg); err != nil {
+		return nil, err
+	}
+
+	return db.QueryActionList(time.Unix(msg.CurTime, 0))
 }
 
 func main() {

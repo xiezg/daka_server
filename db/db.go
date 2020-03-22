@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2020-03-08 11:29:42
-# Last modified: 2020-03-20 07:46:49
+# Last modified: 2020-03-22 20:13:09
 ************************************************************************/
 
 package db
@@ -44,7 +44,6 @@ func QueryAccountInfo(name string, pwd string) (int, error) {
 }
 
 //LEFT JOIN 关键字会从左表 (Persons) 那里返回所有的行，即使在右表 (Orders) 中没有匹配的行
-
 func QueryActionList(date time.Time) ([]interface{}, error) {
 
 	beginUnixTime := time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, date.Location()).Unix()
