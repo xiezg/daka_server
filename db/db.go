@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2020-03-08 11:29:42
-# Last modified: 2020-03-22 20:13:09
+# Last modified: 2020-04-02 07:47:39
 ************************************************************************/
 
 package db
@@ -104,20 +104,15 @@ ORDER BY
 	return result, nil
 }
 
-func TaskCommit(action_type int, commit_time string, remarks string) error {
+func TaskCommit( uid int, action_type int, commit_time string, remarks string) error {
 
 	if commit_time == "" {
-		commit_time = "CURRENT_TIMESTAMP"
+		commit_time = time.Now().Format( "2006-01-02T15:04:05" )
 	}
 
-	sql := `INSERT INTO task_status ( action_type, commit_time, remarks, result )
-VALUES
-    ( ` + strconv.Itoa(action_type) + `, ` + commit_time + `, '` + remarks + `', 1 ) 
-    ON DUPLICATE KEY UPDATE remarks =
-VALUES
-    ( remarks )`
+	sql := "INSERT INTO task_status ( uid, action_type, commit_time, remarks, result ) VALUES ( ?,?,?,?,1 ) ON DUPLICATE KEY UPDATE remarks = VALUES(remarks)"
 
-	if _, err := MyDb.Exec(sql); err != nil {
+	if _, err := MyDb.Exec(sql, uid, action_type, commit_time, remarks ); err != nil {
 		return err
 	}
 
