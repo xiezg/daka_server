@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2020-03-08 11:29:42
-# Last modified: 2020-04-02 07:47:39
+# Last modified: 2021-03-08 11:11:02
 ************************************************************************/
 
 package db
@@ -12,7 +12,7 @@ import "time"
 import "flag"
 import "strconv"
 import "database/sql"
-import "github.com/golang/glog"
+import "github.com/xiezg/glog"
 import "github.com/xiezg/muggle/db"
 
 var MyDb *sql.DB
@@ -27,20 +27,20 @@ func init() {
 
 func init() {
 
-	db, err := db.InitMysql("rm-2zeg3thu1693r3609.mysql.rds.aliyuncs.com", 3306, "daka", "Daka@123")
+	//db, err := db.InitMysql("rm-2zeg3thu1693r3609.mysql.rds.aliyuncs.com", 3306, "daka", "Daka@123")
+	//db, err := db.InitMysql("xiezhenguodeMacBook-Pro.local", 32068, "root", "iU8yFSvDP6FeuMJl", "daka" )
+	db, err := db.InitMysql("localhost", 3306, "root", "", "daka")
 
 	if err != nil {
 		glog.Fatalf("mysql open fails. err:%v", err)
 	}
 
-	db.Exec("use daka")
-
 	glog.Info("database connect success")
 	MyDb = db
 }
 
-func QueryAccountInfo(name string, pwd string) (int, error) {
-	return 0, nil
+func QueryAccountInfo(name string, pwd string) (interface{}, error) {
+	return nil, nil
 }
 
 //LEFT JOIN 关键字会从左表 (Persons) 那里返回所有的行，即使在右表 (Orders) 中没有匹配的行
@@ -104,15 +104,15 @@ ORDER BY
 	return result, nil
 }
 
-func TaskCommit( uid int, action_type int, commit_time string, remarks string) error {
+func TaskCommit(uid int, action_type int, commit_time string, remarks string) error {
 
 	if commit_time == "" {
-		commit_time = time.Now().Format( "2006-01-02T15:04:05" )
+		commit_time = time.Now().Format("2006-01-02T15:04:05")
 	}
 
 	sql := "INSERT INTO task_status ( uid, action_type, commit_time, remarks, result ) VALUES ( ?,?,?,?,1 ) ON DUPLICATE KEY UPDATE remarks = VALUES(remarks)"
 
-	if _, err := MyDb.Exec(sql, uid, action_type, commit_time, remarks ); err != nil {
+	if _, err := MyDb.Exec(sql, uid, action_type, commit_time, remarks); err != nil {
 		return err
 	}
 
