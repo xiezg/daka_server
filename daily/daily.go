@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2021-02-23 21:41:57
-# Last modified: 2021-04-01 10:13:48
+# Last modified: 2021-04-01 11:04:30
 ************************************************************************/
 package daily
 
@@ -11,35 +11,35 @@ import "fmt"
 import "time"
 import "daka/db"
 import "encoding/json"
+
 import "github.com/xiezg/glog"
 import "github.com/xiezg/go-jsonify/jsonify"
 
 func init() {
 
-	go func() {
-		c := time.Tick(time.Hour)
+	today_zero := time.Now().Unix()
+	today_zero -= today_zero % 86400 //取整为UTC零点
+	today_zero -= 3600 * 8           //调整为北京时区，北京时区比UTC快8个小时
 
-		for {
-			<-c
-			if err := TaskCreateToday(); err != nil {
-				glog.Errorf("TaskCreateToday fails. err:%v", err)
-			}
-		}
-	}()
+	time.AfterFunc(time.Duration(today_zero+86400-time.Now().Unix())*time.Second, TaskCreateToday)
 }
 
-func TaskCreateToday() error {
+func TaskCreateToday() {
+
+	glog.Info("start create task")
+
+	time.AfterFunc(24*time.Hour, TaskCreateToday)
 
 	todayDate := time.Now().Format("2006-01-02")
 
 	rows, err := db.MyDb.Query("select * from daily_task where task_date=?", todayDate)
 	if err != nil {
-		return err
+		return
 	}
 
 	defer rows.Close()
 	if rows.Next() {
-		return nil
+		return
 	}
 
 	default_msg := `gantt
@@ -55,10 +55,10 @@ section 下午
 下午 : crit,done, 14:00,22:00`
 
 	if _, err := db.MyDb.Exec("insert into daily_task (task_msg,task_date)values(?,?)", default_msg, todayDate); err != nil {
-		return err
+		return
 	}
 
-	return nil
+	return
 }
 
 func TaskList(ctx interface{}, b []byte) (interface{}, error) {
