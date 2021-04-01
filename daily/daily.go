@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2021-02-23 21:41:57
-# Last modified: 2021-03-10 10:10:16
+# Last modified: 2021-04-01 10:13:48
 ************************************************************************/
 package daily
 
@@ -15,9 +15,17 @@ import "github.com/xiezg/glog"
 import "github.com/xiezg/go-jsonify/jsonify"
 
 func init() {
-	if err := TaskCreateToday(); err != nil {
-		glog.Errorf("TaskCreateToday fails. err:%v", err)
-	}
+
+	go func() {
+		c := time.Tick(time.Hour)
+
+		for {
+			<-c
+			if err := TaskCreateToday(); err != nil {
+				glog.Errorf("TaskCreateToday fails. err:%v", err)
+			}
+		}
+	}()
 }
 
 func TaskCreateToday() error {

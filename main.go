@@ -3,15 +3,16 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2020-03-08 10:45:57
-# Last modified: 2021-03-08 22:59:59
+# Last modified: 2021-03-25 11:11:59
 ************************************************************************/
 
 package main
 
 import "time"
+import "net/http"
 import "daka/db"
 import "daka/daily"
-import "net/http"
+import "daka/note"
 import "daka/money"
 import "encoding/json"
 import "github.com/gorilla/mux"
@@ -81,6 +82,9 @@ func send_sms(actionName string, actionTime time.Time) error {
 func main() {
 
 	r := mux.NewRouter()
+
+	r.HandleFunc("/daka/api/note/list", auth.Auth(note.List))
+	r.HandleFunc("/daka/api/note/update", auth.Auth(note.Update))
 
 	r.HandleFunc("/daka/api/daily/task/list", auth.Auth(daily.TaskList))
 	r.HandleFunc("/daka/api/daily/task/set", auth.Auth(daily.TaskSet))
