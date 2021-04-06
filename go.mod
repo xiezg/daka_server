@@ -3,7 +3,7 @@ module daka
 go 1.15
 
 require (
-	github.com/go-sql-driver/mysql v1.5.0 // indirect
+	github.com/gomarkdown/markdown v0.0.0-20210208175418-bda154fe17d8
 	github.com/gorilla/mux v1.8.0
 	github.com/tencentcloud/tencentcloud-sdk-go v1.0.104
 	github.com/xiezg/glog v0.0.0-20200512024805-77553a7bf27a
@@ -12,4 +12,5 @@ require (
 )
 
 replace github.com/xiezg/muggle => ../muggle
+
 replace github.com/xiezg/glog => ../glog

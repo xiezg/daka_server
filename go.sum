@@ -1,10 +1,11 @@
 github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
+github.com/gomarkdown/markdown v0.0.0-20210208175418-bda154fe17d8 h1:nWU6p08f1VgIalT6iZyqXi4o5cZsz4X6qa87nusfcsc=
+github.com/gomarkdown/markdown v0.0.0-20210208175418-bda154fe17d8/go.mod h1:aii0r/K0ZnHv7G0KF7xy1v0A7s2Ljrb5byB7MO5p6TU=
 github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/tencentcloud/tencentcloud-sdk-go v1.0.104 h1:JzsVDgMoPTvneORcRUdGMi21HRKlXkK0ZvEuwDweS8s=
 github.com/tencentcloud/tencentcloud-sdk-go v1.0.104/go.mod h1:asUz5BPXxgoPGaRgZaVm1iGcUAuHyYUo1nXqKa83cvI=
 github.com/xiezg/go-jsonify v0.0.0-20200411230712-1b0b52358430 h1:flwWZdNxNYDjdlwz8lQggdBrHspzOV8gwjLP6C1KVNI=
 github.com/xiezg/go-jsonify v0.0.0-20200411230712-1b0b52358430/go.mod h1:LlxrMa86/uFlzywTnuqhRsYDwLxZh+petTh0rRAQq4U=
-github.com/xiezg/muggle v0.0.0-20200808060153-865c4e13ebbc h1:rpd/u3XyZMNu64oRc5HvNa1Uvt0orvv99YQTB9bnsUM=
-github.com/xiezg/muggle v0.0.0-20200808060153-865c4e13ebbc/go.mod h1:VQvxTYdc8M2KCaqaIfLIqrWUP+UlvrJMYqN1BnKZ0SI=
+golang.org/dl v0.0.0-20190829154251-82a15e2f2ead/go.mod h1:IUMfjQLJQd4UTqG1Z90tenwKoCX93Gn3MAQJMOSBsDQ=
