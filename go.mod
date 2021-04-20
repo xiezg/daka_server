@@ -9,6 +9,8 @@ require (
 	github.com/xiezg/glog v0.0.0-20200512024805-77553a7bf27a
 	github.com/xiezg/go-jsonify v0.0.0-20200411230712-1b0b52358430
 	github.com/xiezg/muggle v0.0.0-20200808060153-865c4e13ebbc
+	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
+	golang.org/x/tools v0.1.0 // indirect
 )
 
 replace github.com/xiezg/muggle => ../muggle

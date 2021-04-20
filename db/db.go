@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2020-03-08 11:29:42
-# Last modified: 2021-03-08 11:11:02
+# Last modified: 2021-04-14 17:12:45
 ************************************************************************/
 
 package db
@@ -29,7 +29,7 @@ func init() {
 
 	//db, err := db.InitMysql("rm-2zeg3thu1693r3609.mysql.rds.aliyuncs.com", 3306, "daka", "Daka@123")
 	//db, err := db.InitMysql("xiezhenguodeMacBook-Pro.local", 32068, "root", "iU8yFSvDP6FeuMJl", "daka" )
-	db, err := db.InitMysql("localhost", 3306, "root", "", "daka")
+	db, err := db.InitMysql("127.0.0.1", 6000, "root", "", "daka")
 
 	if err != nil {
 		glog.Fatalf("mysql open fails. err:%v", err)
