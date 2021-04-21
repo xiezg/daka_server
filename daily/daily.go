@@ -3,7 +3,7 @@
 # Author: xiezg
 # Mail: xzghyd2008@hotmail.com
 # Created Time: 2021-02-23 21:41:57
-# Last modified: 2021-04-20 11:05:43
+# Last modified: 2021-04-21 15:57:22
 ************************************************************************/
 package daily
 
@@ -16,17 +16,18 @@ import "github.com/xiezg/glog"
 import "github.com/xiezg/go-jsonify/jsonify"
 
 func init() {
+
 	TaskCreateToday()
 }
 
 func TaskCreateToday() {
-	today_zero := time.Now().Unix()
-	today_zero -= today_zero % 86400 //取整为UTC零点
-	today_zero -= 3600 * 8           //调整为北京时区，北京时区比UTC快8个小时
-	next_time := today_zero + 3600*24 - time.Now().Unix()
-	time.AfterFunc(time.Duration(next_time)*time.Second, TaskCreateToday)
 
-	glog.Infof("start create task, next time:%v", time.Unix(time.Now().Unix()+next_time, 0).String())
+	next_time := time.Now()
+	next_time = time.Date(next_time.Year(), next_time.Month(), next_time.Day(), 0, 0, 0, 0, next_time.Location())
+	next_time = next_time.AddDate(0, 0, 1)
+	time.AfterFunc(next_time.AddDate(0, 0, 1).Sub(time.Now()), TaskCreateToday)
+
+	glog.Infof("start create task, next time:%v", next_time)
 
 	todayDate := time.Now().Format("2006-01-02")
 
